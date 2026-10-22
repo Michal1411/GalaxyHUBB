@@ -128,7 +128,7 @@ end
 -- Barvy motivu
 local bgDark = Color3.fromRGB(15, 15, 15)
 local bgLighter = Color3.fromRGB(24, 24, 24)
-local accentColor = Color3.fromRGB(230, 160, 40) -- Měkčí zlatá/oranžová
+local accentColor = Color3.fromRGB(230, 160, 40)
 local textColor = Color3.fromRGB(220, 220, 220)
 
 -- Plovoucí váleček (Permanentní navigační tlačítko)
@@ -328,7 +328,6 @@ local function createToggle(parent, text, varName, callback)
     
     switchBg.MouseButton1Click:Connect(toggleAction)
     
-    -- Hover efekt pro celý řádek
     frame.MouseEnter:Connect(function() TweenService:Create(frame, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play() end)
     frame.MouseLeave:Connect(function() TweenService:Create(frame, TweenInfo.new(0.2), {BackgroundColor3 = bgLighter}):Play() end)
 end
@@ -454,7 +453,7 @@ createToggle(tRewards, "Auto Claim Playtime Egg", "AutoPlaytimeEgg", function(st
     end)
 end)
 
--- 4. Fishing World (Plynulý cyklus, opravený zásek)
+-- 4. Fishing World
 local tFish = createTab("Fishing World")
 createDropdown(tFish, "Fishing Spot", FishingSpots, "FishSpot")
 createToggle(tFish, "Auto Fish", "AutoFish", function(state)
@@ -465,7 +464,7 @@ createToggle(tFish, "Auto Fish", "AutoFish", function(state)
             task.wait(1)
             while Toggles.AutoFish do
                 pcall(function() FishingService:WaitForChild("BeginFishing_1a4"):InvokeServer() end)
-                task.wait(4.5) -- Ideální doba na vytáhnutí
+                task.wait(4.5) 
                 pcall(function() FishingService:WaitForChild("EndFishing_7wg"):InvokeServer() end)
                 task.wait(0.5)
             end
